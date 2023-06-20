@@ -23,10 +23,10 @@ let chosenWord = "";
 
 //
 
-// let button = document.createElement("div");
-// for (let value in options) {
-//     button.unnerHTML += `button class="options" onclick="generateWord(`${value}`)">${value}</button`;
-// }
+let button = document.createElement("div");
+for (let value in wordOptions) {
+    button.innerHTML += `button class="wordOptions" onclick="generateWord($`{value}`)">${value}</button`;
+}
 
 
 //
@@ -113,10 +113,73 @@ let { initialDrawing } = canvaCreator();
 initialDrawing();
 };
 const canvaCreator = () => {
-    let context = canva.getContext("2d");
+    let context = canvas.getContext("2d");
     context.beginPath();
     context.strokeStyle = "#000";
-    context.lineWidth = 1;
+    context.lineWidth = 10;
 //how to draw Lines
+const drawLine = (fromX, FromY, toX, toY) => {
+context.moveTo(fromX, fromY);
+context.lineTo(taX, toY);
+context.strock();
+};
 
+const head = () => {
+    context.beginPath();
+    context.arc(70, 30, 10, 0, Math.PI * 2, true);
+    context.strock();
+};
+const body = () => {
+    drawLine( 70, 40, 70, 80);
+};
+
+const rightArm = () => {
+    drawLine(70, 50, 90, 70);
+};
+const leftArm = () => {
+    drawLine (70, 50, 90, 70);
+};
+const rightLeg = () => {
+    drawLine(70, 50, 90, 110);
+};
+const leftLeg = () => {
+    drawLine(70, 50, 90, 110);
+};
+//frame
+const initialDrawing = () => {
+    context.clearReact(0, 0, context.canvas.width, context.canvas.height);
+    drawLine(10, 130, 130, 130);
+    drawLine(10, 10, 10, 130);
+    drawLine(10, 10, 70, 10);
+    drawLine(70, 10, 70, 20);
+};
+return {initialDrawing, head, body, rightArm, leftArm, rightLeg, leftLeg };
+};
+
+const drawman = (count) => {
+let { head, body, rightArm, leftArm, rightLeg, leftLeg } = canvaCreator();
+switch (count) {
+    case 1:
+    head();
+    break;
+    case 2:
+    body();
+    break;
+    case 3:
+    rightArm();
+    break;
+    case 4:
+    leftArm();
+    break;
+    case 5:
+    rightLeg();
+    break;
+    case 6:
+    leftLeg();
+    break;
+    default:
+    break;
 }
+};
+playAgainButton.addEventListener("click", initializer);
+window.onload = initializer;
