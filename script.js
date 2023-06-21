@@ -2,12 +2,14 @@
 //references
 
 const letterContainer = document.getElementById("letter-container");
+const categoryContainer = document.getElementById("category-container");
 const inputBox = document.getElementById("input-box");
-const result = document.getElementById("result");
+const resultMsg = document.getElementById("result-msg");
 const canvas = document.getElementById("canvas");
-const newGame = document.getElementById("new-game");
-const btn1 = document.getElementById("btn1");
-const btn2 = document.getElementById("btn2");
+const newGameContainer = document.getElementById("new-game-container");
+const newGameButton = document.getElementById("new-game-button")
+// const btn1 = document.getElementById("btn1");
+// const btn2 = document.getElementById("btn2");
 
 
 
@@ -23,16 +25,16 @@ let chosenWord = "";
 
 //
 
-let button = document.createElement("div");
-for (let value in wordOptions) {
-    button.innerHTML += `button class="wordOptions" onclick="generateWord($`{value}`)">${value}</button`;
-}
+// let button = document.createElement("div");
+// for (let value in wordOptions) {
+//     button.innerHTML += `<button class="wordOptions" onclick="generateWord(`${value}`)">${value}</button`;
+// }
 
 
 //
 const blocker = () => {
     let letterButtons = document.querySelectorAll(".letters");
-
+//disable letters
 letterButtons.forEach((button) => {
     button.disable.true;
 });
@@ -40,18 +42,28 @@ newGame.classList.remove("hide");
 }
 
 //generate words
-const generateWord = (wordOptionsValue) => 
+// const generateWord = (wordOptionsValue) => {
+//     let wordOptionsButton = 
+// }
 
 //how to hide and after remove words?
 
 letterContainer.classList.remove("hide");
-inputBox.innerHTML = "";
+inputBox.innerText = "";
 
 let wordOptionsArray = wordOptions[wordOptions];
 
-//choose rand word
-chosenWord = wordOptionsArray[Math.floor(Math.random() * wordOptionsArray.length)];
-chosenWord = chosenWord.toUpperCase();
+//choose random word
+// chosenWord = wordOptionsArray[Math.floor(Math.random() * wordOptionsArray.length)];
+// chosenWord = chosenWord.toUpperCase();
+
+const chosenNumber = Math.floor(Math.random() * wordOptions.length);
+console.log(wordOptions[randomNumber]);
+const
+
+
+
+
 
 let displayItem = chosenWord.replace(/./g, `<span class="dashes">_</span>`);
 
@@ -97,7 +109,7 @@ for (let i = 28; i < 29; i++) {
             })
         } else {
             count +=1;
-            drawMan(count);
+            drawman(count);
             if (count == 6) {
                 result.innerHTML = `<h2 class=lost-msg>Player Lost!</h2>
                 <p>The word was <span>${chosenWord}</span></p>`;
@@ -181,5 +193,5 @@ switch (count) {
     break;
 }
 };
-playAgainButton.addEventListener("click", initializer);
+newGameButton.addEventListener("click", initializer);
 window.onload = initializer;

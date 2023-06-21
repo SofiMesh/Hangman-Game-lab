@@ -40,6 +40,43 @@ body {
     padding: 3 em;
     border-radius: 0.7em  */
 
+#category-container {
+    text-align: center;
+}
+
+#category-container div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1.2em 0 2.4em 0;
+}
+
+#category-container button {
+padding: 0.6em 1.2em;
+border: 3px solid black;
+background-color: antiquewhite;
+color:azure;
+border-radius: 0.3em;
+text-transform: capitalize;
+cursor: pointer;
+}
+
+#category-container button:disabled {
+    border: 3px solid black;
+    color: grey;
+    background-color: aliceblue;
+
+}
+
+#category-container button:active {
+    background-color: blueviolet;
+    border: purple;
+    color:aliceblue;
+}
+
+
+
+
 h1 {
     font-size: 20px;
     text-decoration: aqua;
@@ -86,6 +123,7 @@ left: 0em;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     border-radius: 0.6em;
 }
@@ -119,16 +157,16 @@ canvas {
 .hide {
     display: none;
 }
-#result h2{
+#result-msg h2{
     font-size: 1.25em ;
     text-align: center;
 }
-#result p {
+#result-msg p {
     font-size: 1.25em;
     margin: 1em 0 2em 0;
 }
 
-#result span {
+#result-msg span {
     font-weight: 600;
 }
 
