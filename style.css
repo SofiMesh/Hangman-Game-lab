@@ -40,18 +40,18 @@ body {
     padding: 3 em;
     border-radius: 0.7em  */
 
-#category-container {
+#options-container {
     text-align: center;
 }
 
-#category-container div {
+#options-container div {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin: 1.2em 0 2.4em 0;
 }
 
-#category-container button {
+#options-container button {
 padding: 0.6em 1.2em;
 border: 3px solid black;
 background-color: antiquewhite;
@@ -61,14 +61,14 @@ text-transform: capitalize;
 cursor: pointer;
 }
 
-#category-container button:disabled {
+#options-container button:disabled {
     border: 3px solid black;
     color: grey;
     background-color: aliceblue;
 
 }
 
-#category-container button:active {
+#options-container button:active {
     background-color: blueviolet;
     border: purple;
     color:aliceblue;

@@ -2,7 +2,7 @@
 //references
 
 const letterContainer = document.getElementById("letter-container");
-const categoryContainer = document.getElementById("category-container");
+const optionsContainer = document.getElementById("options-container");
 const inputBox = document.getElementById("input-box");
 const resultMsg = document.getElementById("result-msg");
 const canvas = document.getElementById("canvas");
@@ -13,9 +13,11 @@ const newGameButton = document.getElementById("new-game-button")
 
 
 
-//display words for the game
+//display options for category buttons
 
-let wordOptions = ["Lion", "Tiger", "Wolf", "Fox", "Racoon", "Monkey"];
+let options = {
+   animals: ["Lion", "Tiger", "Wolf", "Fox", "Racoon", "Monkey"]
+}
 
 //count points
 let winCount = 0;
@@ -23,28 +25,37 @@ let count = 0;
 let chosenWord = "";
 
 
-//
-
-// let button = document.createElement("div");
-// for (let value in wordOptions) {
-//     button.innerHTML += `<button class="wordOptions" onclick="generateWord(`${value}`)">${value}</button`;
-// }
-
-
-//
-const blocker = () => {
-    let letterButtons = document.querySelectorAll(".letters");
-//disable letters
-letterButtons.forEach((button) => {
-    button.disable.true;
-});
-newGame.classList.remove("hide");
+//display option button
+const displayOptions = () => {
+   optionsContainer.innerHTML += `<h3>Select An Option</h3>`;
+   let buttonCon = document.createElement("div");
+   for (let value in options) {
+    buttonCon.innerHTML += `"button class="options" onclick="generateWord(`${value}`)">${value}</button>`;
+   }
+   optionsContainer.appendChild(buttonCon);
 }
 
-//generate words
-// const generateWord = (wordOptionsValue) => {
-//     let wordOptionsButton = 
-// }
+
+
+
+//block opt butt
+const blocker = () => {
+    let optionsButtons = document.querySelectorAll(".options");
+    let letterButtons = document.querySelectorAll(".letters");
+
+//disable 
+ optionsButtons.forEach((button) => {
+    button.disabled = true;
+ });
+ letterButtons.forEach((button) => {
+    button.disabled = true;
+ });
+ newGameContainer.classList.remove("hide");
+};
+
+
+
+/
 
 //how to hide and after remove words?
 
