@@ -8,17 +8,16 @@ const resultMsg = document.getElementById("result-msg");
 const canvas = document.getElementById("canvas");
 const newGameContainer = document.getElementById("new-game-container");
 const newGameButton = document.getElementById("new-game-button")
-// const btn1 = document.getElementById("btn1");
-// const btn2 = document.getElementById("btn2");
 
 
 
-//display options for category buttons
+
+//display options 
 
 let options = {
-   animals: ["Lion", "Tiger", "Wolf", "Fox", "Racoon", "Monkey"]
+   animals: ["Lion", "Tiger", "Wolf", "Fox", "Raccoon", "Monkey"],
+//    fish: ["salmon", "tuna", "seabass"]
 }
-
 //count points
 let winCount = 0;
 let count = 0;
@@ -30,7 +29,7 @@ const displayOptions = () => {
    optionsContainer.innerHTML += `<h3>Select An Option</h3>`;
    let buttonCon = document.createElement("div");
    for (let value in options) {
-    buttonCon.innerHTML += `"button class="options" onclick="generateWord(`${value}`)">${value}</button>`;
+    buttonCon.innerHTML += `<button class="options" onclick="generateWord('${value}')">${value}</button>`;
    }
    optionsContainer.appendChild(buttonCon);
 }
@@ -53,104 +52,115 @@ const blocker = () => {
  newGameContainer.classList.remove("hide");
 };
 
+//word generator
+const generateWord = (optionsValue) => {
+    let optionsButtons = document.querySelectorAll(".options");
+    optionsButtons.forEach((button) => {
+        if (button.innerText.toLowerCase() === optionsValue) {
+            button.classList.add("active");
+        }
+        button.disabled = true;
+    });
 
 
-/
 
 //how to hide and after remove words?
 
 letterContainer.classList.remove("hide");
 inputBox.innerText = "";
 
-let wordOptionsArray = wordOptions[wordOptions];
+let optionsArray = options[optionsValue];
 
 //choose random word
-// chosenWord = wordOptionsArray[Math.floor(Math.random() * wordOptionsArray.length)];
-// chosenWord = chosenWord.toUpperCase();
-
-const chosenNumber = Math.floor(Math.random() * wordOptions.length);
-console.log(wordOptions[randomNumber]);
-const
+chosenWord = optionsArray[Math.floor(Math.random() * optionsArray.length)];
+chosenWord = chosenWord.toUpperCase();
 
 
-
-
+//replace dashes with letters
 
 let displayItem = chosenWord.replace(/./g, `<span class="dashes">_</span>`);
-
 inputBox.innerHTML = displayItem;
-// }
+};
 
-//when pressed play again button
+
+//call func
 
 const initializer = () => {
     winCount= 0;
     count = 0;
 
-    //delete content 
+    //remove content 
 
 inputBox.innerHTML = "";
+optionsContainer.innerHTML = "";
 letterContainer.classList.add("hide");
-newGame.classList.add("hide");
+newGameContainer.classList.add("hide");
 letterContainer.innerHTML = "";
 
+
 //letter buttons
-for (let i = 28; i < 29; i++) {
-    let button = document.createElement("button");
-    button.classList.add("letters");
+for (let i = 65; i < 91; i++) {
+let button = document.createElement("button");
+button.classList.add("letter");
 
-    button.innerText = String.fromCharCode(i);
+button.innerText= String.fromCharCode(i);
 
-    // eventlisteners
+button.addEventListener("click", () => {
+    let charArray = chosenWord.split("");
+    let dashes = document.getElementsByClassName("dashes");
 
-    button.addEventListener("click", () => {
-        let charArray = chosenWord.split("");
-        let dashes = document.getElementsByClassName("dashes");
-        if (charArray.includes(button.innerHTML)) {
-            charArray.forEach((char, index) => {
-                if (char === button.innerText) {
-                    dashes[index].innerText = char;
-                    winCount +=1;
-                    if (winCount === charArray.length) {
-                        result.innerHtml = `<h2 class=win-msg>Player Won!</h2>
-                        <p>The word was <span>${chosenWord}</span></p>`;
-                        blocker();
-                    }
-                }
-            })
-        } else {
-            count +=1;
-            drawman(count);
-            if (count == 6) {
-                result.innerHTML = `<h2 class=lost-msg>Player Lost!</h2>
-                <p>The word was <span>${chosenWord}</span></p>`;
+    //if array containd clicked value replace match dash
+
+    if (charArray.includes(button.innerText)) {
+        charArray.forEach((char, index) => {
+        if (char === button.innerText) {
+            dashes[index].innerText = char;
+            winCount += 1;
+            if (winCount == charArray.length) {
+                resultMsg.innerHTML = `<h2 class='win-msg'>You Win!</h2><p>The word was <span>${chosenWord}</span></p>`;
+                //block all the buttons
                 blocker();
             }
         }
-        button.disabled = true;
-    })
-    letterContainer.append(button);
+        });
+    } else {
+       //if lost
+       count += 1; 
+       drawMan(count);
+       if (count == 6) {
+        resultMsg.innerHTML = `<h2 class='lose-msg'>Game Over!</h2><p>Ther word was <span>${chosenWord}</span></p>`;
+        blocker();
+       }
+    }
+    //disable clicked btns
+    button.disabled = true;
+});
+letterContainer.append(button);
 }
-displayWordOptions();
-let { initialDrawing } = canvaCreator();
+
+displayOptions();
+let { initialDrawing } = canvasCreator();
 initialDrawing();
 };
-const canvaCreator = () => {
+
+const canvasCreator = () => {
     let context = canvas.getContext("2d");
     context.beginPath();
     context.strokeStyle = "#000";
-    context.lineWidth = 10;
+    context.lineWidth = 5;
+
+
 //how to draw Lines
-const drawLine = (fromX, FromY, toX, toY) => {
+const drawLine = (fromX, fromY, toX, toY) => {
 context.moveTo(fromX, fromY);
-context.lineTo(taX, toY);
-context.strock();
+context.lineTo(toX, toY);
+context.stroke();
 };
 
 const head = () => {
     context.beginPath();
     context.arc(70, 30, 10, 0, Math.PI * 2, true);
-    context.strock();
+    context.stroke();
 };
 const body = () => {
     drawLine( 70, 40, 70, 80);
@@ -170,17 +180,17 @@ const leftLeg = () => {
 };
 //frame
 const initialDrawing = () => {
-    context.clearReact(0, 0, context.canvas.width, context.canvas.height);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     drawLine(10, 130, 130, 130);
-    drawLine(10, 10, 10, 130);
+    drawLine(10, 10, 10, 131);
     drawLine(10, 10, 70, 10);
     drawLine(70, 10, 70, 20);
 };
 return {initialDrawing, head, body, rightArm, leftArm, rightLeg, leftLeg };
 };
 
-const drawman = (count) => {
-let { head, body, rightArm, leftArm, rightLeg, leftLeg } = canvaCreator();
+const drawMan = (count) => {
+let { head, body, rightArm, leftArm, rightLeg, leftLeg } = canvasCreator();
 switch (count) {
     case 1:
     head();
@@ -196,7 +206,7 @@ switch (count) {
     break;
     case 5:
     rightLeg();
-    break;
+    break;s
     case 6:
     leftLeg();
     break;
